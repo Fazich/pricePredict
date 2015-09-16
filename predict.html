@@ -101,44 +101,50 @@
         </div>
     </div>
 
-	<!-- 粗略预测 -->
+    <!-- 粗略预测 -->
     <script type="text/javascript">
 
-    	$('#J_simplePredict').bind('click', function(){
+        $('#J_simplePredict').bind('click', function(){
 
-    		var year = $('#J_pridictYear').val();
+            var year = $('#J_pridictYear').val();
 
-    		if(!year){
-    			alert("请输入粗略预测年份")
-    		}
+            if(year.length==0){
+                return $('#J_result').html("<span style=color:red>请输入您的粗略预测年份</span>");
+            }
 
-    		var result = 105.7234*(year*year)+(-422494.3)*year+422098100;
+            var result = 105.7234*(year*year)+(-422494.3)*year+422098100;
 
-    		$('#J_result').html(year+"年的粗略预测房价为"+"<span style="+"color:red"+">"+Math.round(result)+"</span>"+"元");
+            $('#J_result').html("<span style=color:red>"+year+"</span>年的粗略预测房价为<span style=color:red>"+Math.round(result)+"</span>元");
 
 
-    	})
+        })
 
     </script>
 
     <!-- 详细预测 -->
     <script type="text/javascript">
 
-    	$('#J_detailPredict').bind('click', function(){
+        $('#J_detailPredict').bind('click', function(){
 
-    		var cpi = $('#J_cpi').val(),
-    			rpi = $('#J_rpi').val(),
-    			population = $('#J_population').val(),
-    			sum = $('#J_sum').val(),
-    			area = $('#J_area').val();
+            var cpi = $('#J_cpi').val(),
+                rpi = $('#J_rpi').val(),
+                population = $('#J_population').val(),
+                sum = $('#J_sum').val(),
+                area = $('#J_area').val();
 
-    		var result = -39.100042*cpi+72.479694*rpi+20.170492*population+3.662609*sum+(-1.190224)*area+(-35015.096463);
+            if(cpi.length==0||rpi.length==0||population.length==0||sum.length==0||area.length==0){
 
-    		$('#J_result').html("详细预测房价为"+"<span style="+"color:red"+">"+Math.round(result)+"</span>"+"元");
+                return $('#J_result').html("<span style=color:red>您有详细预测参数未输入，无法进行预测</span>");
+
+            }
+
+            var result = -39.100042*cpi+72.479694*rpi+20.170492*population+3.662609*sum+(-1.190224)*area+(-35015.096463);
+
+            $('#J_result').html("详细预测房价为"+"<span style="+"color:red"+">"+Math.round(result)+"</span>"+"元");
 
 
 
-    	})
+        })
 
     </script>
 </body>
