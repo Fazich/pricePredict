@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>上海市房价预测</title>
+    <!-- Bootstrap -->
+    <link href="stylesheets/bootstrap.css" rel="stylesheet">
+    <script src="js/jquery-2.1.4.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <a class="navbar-brand" href="javascript:void(0)">上海市房价预测</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+    <div class="container">
+        <div class="jumbotron">
+            <h1 id="J_result">预测结果将会在这里显示</h1>
+            <p>上述预测基于R语言得出统计结论和回归模型，基础数据来源于上海统计年鉴</p>
+            <p><a class="btn btn-primary btn-lg" href="https://github.com/Fazich" role="button">欢迎关注作者YC</a></p>
+        </div>
+        <div class="panel panel-primary col-md-5 col-md-offset-0">
+            <div class="panel-heading">粗略预测</div>
+            <div class="panel-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">预测年份：</label>
+                        <div class="col-sm-9">
+                            <input id="J_pridictYear" type="text" class="form-control" placeholder="请输入您想预测的年份">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-3 col-sm-10">
+                            <a id="J_simplePredict" type="submit" class="btn btn-success col-sm-4" href="javascript:void(0)">粗略预测</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="panel panel-primary col-md-6 col-md-offset-1">
+            <div class="panel-heading">
+                <h3 class="panel-title">详细预测</h3>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-5 control-label">居民消费价格指数（CPI）:</label>
+                        <div class="col-sm-7">
+                            <input id="J_cpi" type="text" class="form-control" placeholder="居民消费价格指数（CPI）">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-5 control-label">商品零售价格指数（RPI）:</label>
+                        <div class="col-sm-7">
+                            <input id="J_rpi" type="text" class="form-control" placeholder="商品零售价格指数（RPI）">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-5 control-label">常驻人口（万人）:</label>
+                        <div class="col-sm-7">
+                            <input id="J_population" type="text" class="form-control" placeholder="常驻人口（万人）">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-5 control-label">房地产开发总额（亿元）：</label>
+                        <div class="col-sm-7">
+                            <input id="J_sum" type="text" class="form-control" placeholder="房地产开发总额（亿元）：">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-5 control-label">竣工面积（万平方米）：</label>
+                        <div class="col-sm-7">
+                            <input id="J_area" type="text" class="form-control" placeholder="竣工面积（万平方米）：">
+                        </div>
+                    </div>
+                    <div  class="form-group">
+                        <div class="col-sm-offset-4 col-sm-10">
+                            <a id="J_detailPredict" type="submit" class="btn btn-success col-sm-4" href="javascript:void(0)">详细预测</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+	<!-- 粗略预测 -->
+    <script type="text/javascript">
+
+    	$('#J_simplePredict').bind('click', function(){
+
+    		var year = $('#J_pridictYear').val();
+
+    		if(!year){
+    			alert("请输入粗略预测年份")
+    		}
+
+    		var result = 105.7234*(year*year)+(-422494.3)*year+422098100;
+
+    		$('#J_result').html(year+"年的粗略预测房价为"+"<span style="+"color:red"+">"+Math.round(result)+"</span>"+"元");
+
+
+    	})
+
+    </script>
+
+    <!-- 详细预测 -->
+    <script type="text/javascript">
+
+    	$('#J_detailPredict').bind('click', function(){
+
+    		var cpi = $('#J_cpi').val(),
+    			rpi = $('#J_rpi').val(),
+    			population = $('#J_population').val(),
+    			sum = $('#J_sum').val(),
+    			area = $('#J_area').val();
+
+    		var result = -39.100042*cpi+72.479694*rpi+20.170492*population+3.662609*sum+(-1.190224)*area+(-35015.096463);
+
+    		$('#J_result').html("详细预测房价为"+"<span style="+"color:red"+">"+Math.round(result)+"</span>"+"元");
+
+
+
+    	})
+
+    </script>
+</body>
+
+</html>
